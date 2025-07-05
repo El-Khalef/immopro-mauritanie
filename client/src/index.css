@@ -1,0 +1,325 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(20, 14.3%, 4.1%);
+  --muted: hsl(60, 4.8%, 95.9%);
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(20, 14.3%, 4.1%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(20, 14.3%, 4.1%);
+  --border: hsl(20, 5.9%, 90%);
+  --input: hsl(20, 5.9%, 90%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(60, 4.8%, 95.9%);
+  --secondary-foreground: hsl(24, 9.8%, 10%);
+  --accent: hsl(60, 4.8%, 95.9%);
+  --accent-foreground: hsl(24, 9.8%, 10%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --ring: hsl(20, 14.3%, 4.1%);
+  --radius: 0.5rem;
+
+  /* Custom properties for ImmoPro design */
+  --primary-50: hsl(207, 90%, 97%);
+  --primary-100: hsl(207, 90%, 93%);
+  --primary-500: hsl(207, 90%, 54%);
+  --primary-600: hsl(207, 90%, 48%);
+  --primary-700: hsl(207, 90%, 42%);
+  
+  --emerald-100: hsl(151, 81%, 91%);
+  --emerald-500: hsl(158, 64%, 52%);
+  --emerald-600: hsl(158, 64%, 45%);
+  --emerald-800: hsl(158, 64%, 25%);
+  
+  --orange-100: hsl(34, 100%, 92%);
+  --orange-600: hsl(25, 95%, 53%);
+  
+  --red-100: hsl(0, 93%, 94%);
+  --red-500: hsl(0, 84%, 60%);
+  --red-600: hsl(0, 84%, 55%);
+  
+  --blue-100: hsl(221, 91%, 91%);
+  --blue-500: hsl(221, 83%, 53%);
+  --blue-800: hsl(221, 83%, 25%);
+  
+  --yellow-100: hsl(54, 92%, 95%);
+  --yellow-800: hsl(25, 62%, 25%);
+  
+  --gray-50: hsl(210, 20%, 98%);
+  --gray-100: hsl(220, 14%, 96%);
+  --gray-200: hsl(220, 13%, 91%);
+  --gray-300: hsl(216, 12%, 84%);
+  --gray-400: hsl(218, 11%, 65%);
+  --gray-500: hsl(220, 9%, 46%);
+  --gray-600: hsl(215, 14%, 34%);
+  --gray-700: hsl(217, 19%, 27%);
+  --gray-800: hsl(215, 28%, 17%);
+  --gray-900: hsl(222, 84%, 5%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  /* Font Awesome icons */
+  .fas, .fab {
+    font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands';
+    font-weight: 900;
+  }
+
+  .fab {
+    font-weight: 400;
+  }
+}
+
+@layer components {
+  /* Primary color utilities matching the design */
+  .text-primary-50 { color: var(--primary-50); }
+  .text-primary-100 { color: var(--primary-100); }
+  .text-primary-500 { color: var(--primary-500); }
+  .text-primary-600 { color: var(--primary-600); }
+  .text-primary-700 { color: var(--primary-700); }
+  
+  .bg-primary-50 { background-color: var(--primary-50); }
+  .bg-primary-100 { background-color: var(--primary-100); }
+  .bg-primary-500 { background-color: var(--primary-500); }
+  .bg-primary-600 { background-color: var(--primary-600); }
+  .bg-primary-700 { background-color: var(--primary-700); }
+  
+  .border-primary-600 { border-color: var(--primary-600); }
+  
+  .hover\:bg-primary-50:hover { background-color: var(--primary-50); }
+  .hover\:bg-primary-700:hover { background-color: var(--primary-700); }
+  .hover\:text-primary-700:hover { color: var(--primary-700); }
+  
+  /* Emerald utilities */
+  .text-emerald-600 { color: var(--emerald-600); }
+  .text-emerald-800 { color: var(--emerald-800); }
+  .bg-emerald-100 { background-color: var(--emerald-100); }
+  .bg-emerald-500 { background-color: var(--emerald-500); }
+  
+  /* Orange utilities */
+  .text-orange-600 { color: var(--orange-600); }
+  .bg-orange-100 { background-color: var(--orange-100); }
+  
+  /* Red utilities */
+  .text-red-500 { color: var(--red-500); }
+  .text-red-600 { color: var(--red-600); }
+  .bg-red-100 { background-color: var(--red-100); }
+  .hover\:text-red-500:hover { color: var(--red-500); }
+  
+  /* Blue utilities */
+  .text-blue-800 { color: var(--blue-800); }
+  .bg-blue-100 { background-color: var(--blue-100); }
+  .bg-blue-500 { background-color: var(--blue-500); }
+  
+  /* Yellow utilities */
+  .text-yellow-800 { color: var(--yellow-800); }
+  .bg-yellow-100 { background-color: var(--yellow-100); }
+  
+  /* Gray utilities */
+  .text-gray-200 { color: var(--gray-200); }
+  .text-gray-300 { color: var(--gray-300); }
+  .text-gray-400 { color: var(--gray-400); }
+  .text-gray-500 { color: var(--gray-500); }
+  .text-gray-600 { color: var(--gray-600); }
+  .text-gray-700 { color: var(--gray-700); }
+  .text-gray-800 { color: var(--gray-800); }
+  .text-gray-900 { color: var(--gray-900); }
+  
+  .bg-gray-50 { background-color: var(--gray-50); }
+  .bg-gray-100 { background-color: var(--gray-100); }
+  .bg-gray-200 { background-color: var(--gray-200); }
+  .bg-gray-300 { background-color: var(--gray-300); }
+  .bg-gray-400 { background-color: var(--gray-400); }
+  .bg-gray-800 { background-color: var(--gray-800); }
+  .bg-gray-900 { background-color: var(--gray-900); }
+  
+  .border-gray-200 { border-color: var(--gray-200); }
+  .border-gray-300 { border-color: var(--gray-300); }
+  .border-gray-800 { border-color: var(--gray-800); }
+  
+  .hover\:text-gray-500:hover { color: var(--gray-500); }
+  .hover\:text-gray-600:hover { color: var(--gray-600); }
+  .hover\:text-gray-700:hover { color: var(--gray-700); }
+  .hover\:text-white:hover { color: white; }
+  .hover\:bg-gray-300:hover { background-color: var(--gray-300); }
+  
+  /* Property card hover effects */
+  .property-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  .property-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Hero section text shadow for better readability */
+  .hero-text {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Button focus states */
+  .btn-focus:focus {
+    outline: 2px solid var(--primary-500);
+    outline-offset: 2px;
+  }
+  
+  /* Loading spinner animation */
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+  
+  /* Smooth transitions */
+  .transition-colors {
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  }
+  
+  .transition-shadow {
+    transition: box-shadow 0.2s ease-in-out;
+  }
+  
+  /* Map container styling */
+  .leaflet-container {
+    border-radius: 0.5rem;
+    z-index: 1;
+  }
+  
+  /* Custom scrollbar for better UX */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: var(--gray-100);
+    border-radius: 4px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--gray-400);
+    border-radius: 4px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--gray-500);
+  }
+}
+
+@layer utilities {
+  /* Font weights */
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Mobile-first responsive utilities */
+  .container-responsive {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  @media (min-width: 640px) {
+    .container-responsive {
+      padding: 0 1.5rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .container-responsive {
+      padding: 0 2rem;
+    }
+  }
+  
+  /* Text utilities for property details */
+  .price-text {
+    font-variant-numeric: tabular-nums;
+  }
+  
+  /* Image aspect ratios */
+  .aspect-property {
+    aspect-ratio: 4 / 3;
+  }
+  
+  .aspect-property-hero {
+    aspect-ratio: 16 / 9;
+  }
+  
+  /* Focus visible for accessibility */
+  .focus-visible:focus-visible {
+    outline: 2px solid var(--primary-500);
+    outline-offset: 2px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border: hsl(0, 0%, 20%);
+    --input: hsl(0, 0%, 20%);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
