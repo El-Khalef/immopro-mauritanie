@@ -2,6 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Support RTL pour l'arabe */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .flex {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .flex-row-reverse {
+  flex-direction: row;
+}
+
+[dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+[dir="rtl"] .ml-auto {
+  margin-left: unset;
+  margin-right: auto;
+}
+
+[dir="rtl"] .mr-auto {
+  margin-right: unset;
+  margin-left: auto;
+}
+
+[dir="rtl"] .pl-3 {
+  padding-left: unset;
+  padding-right: 0.75rem;
+}
+
+[dir="rtl"] .pr-3 {
+  padding-right: unset;
+  padding-left: 0.75rem;
+}
+
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+/* Classes utilitaires pour le RTL */
+.rtl\:text-right[dir="rtl"] {
+  text-align: right;
+}
+
+.rtl\:text-left[dir="rtl"] {
+  text-align: left;
+}
+
+.rtl\:flex-row-reverse[dir="rtl"] {
+  flex-direction: row-reverse;
+}
+
+.rtl\:mr-2[dir="rtl"] {
+  margin-right: 0.5rem;
+}
+
+.rtl\:ml-2[dir="rtl"] {
+  margin-left: 0.5rem;
+}
+
 :root {
   --background: hsl(0, 0%, 100%);
   --foreground: hsl(20, 14.3%, 4.1%);

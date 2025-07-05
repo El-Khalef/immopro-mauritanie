@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslation } from 'react-i18next';
 
 interface SearchFormProps {
   onSearch?: (filters: any) => void;
@@ -11,6 +12,7 @@ interface SearchFormProps {
 }
 
 export default function SearchForm({ onSearch, heroMode = false, compact = false }: SearchFormProps) {
+  const { t } = useTranslation();
   const [filters, setFilters] = useState({
     type: '',
     propertyType: '',
@@ -40,25 +42,25 @@ export default function SearchForm({ onSearch, heroMode = false, compact = false
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="md:col-span-1">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Type</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">{t('search.property_type')}</label>
               <Select onValueChange={(value) => handleInputChange('propertyType', value)}>
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Tous types" />
+                  <SelectValue placeholder={t('search.all_types')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Tous types</SelectItem>
-                  <SelectItem value="apartment">Appartement</SelectItem>
-                  <SelectItem value="house">Maison</SelectItem>
-                  <SelectItem value="commercial">Local commercial</SelectItem>
+                  <SelectItem value="all">{t('search.all_types')}</SelectItem>
+                  <SelectItem value="apartment">{t('search.apartment')}</SelectItem>
+                  <SelectItem value="house">{t('search.house')}</SelectItem>
+                  <SelectItem value="commercial">{t('search.commercial')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             
             <div className="md:col-span-1">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Ville</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">{t('search.city_placeholder')}</label>
               <Input 
                 type="text" 
-                placeholder="Paris, Lyon, Marseille..." 
+                placeholder={t('search.city_placeholder')} 
                 value={filters.city}
                 onChange={(e) => handleInputChange('city', e.target.value)}
                 className="w-full"

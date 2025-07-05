@@ -103,6 +103,16 @@ ImmoPro is a modern full-stack real estate platform built with React, Express, a
 
 ## Changelog
 - July 05, 2025. Initial setup
+- July 05, 2025. Added complete multilingual support (French, English, Arabic with RTL) using i18next and react-i18next
+
+## Recent Changes
+- **Multilingual System**: Implemented complete i18n support with:
+  - French (default), English, and Arabic languages
+  - RTL support for Arabic with CSS adaptations
+  - Language switcher component with flags
+  - Comprehensive translation files for all UI elements
+  - Direction detection and automatic HTML attribute management
 
 ## User Preferences
-Preferred communication style: Simple, everyday language.
+- Preferred communication style: Simple, everyday language in French
+- Multilingual support: French (primary), English, Arabic with RTL
