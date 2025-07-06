@@ -121,5 +121,33 @@
     "contact_info": "Contact information",
     "follow_us": "Follow us",
     "rights_reserved": "All rights reserved"
+  },
+  "profile": {
+    "member": "Member",
+    "edit": "Edit Profile",
+    "favorites": "Favorites",
+    "messages": "Messages",
+    "member_since": "Member Since",
+    "saved_properties": "saved properties",
+    "contact_requests": "contact requests",
+    "years_member": "years of membership",
+    "my_favorites": "My Favorites",
+    "favorites_description": "Manage your favorite properties",
+    "no_favorites": "No favorites yet",
+    "browse_properties": "Browse Properties",
+    "view_all_favorites": "View All Favorites",
+    "my_messages": "My Messages",
+    "messages_description": "Your contact requests and conversations",
+    "no_messages": "No messages yet",
+    "view_all_messages": "View All Messages",
+    "status_pending": "Pending",
+    "status_contacted": "Contacted",
+    "status_closed": "Closed"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "unauthorized": "Unauthorized",
+    "login_required": "You must login to access this page"
   }
 }

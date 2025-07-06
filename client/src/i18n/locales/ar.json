@@ -121,5 +121,33 @@
     "contact_info": "معلومات الاتصال",
     "follow_us": "تابعنا",
     "rights_reserved": "جميع الحقوق محفوظة"
+  },
+  "profile": {
+    "member": "عضو",
+    "edit": "تعديل الملف الشخصي",
+    "favorites": "المفضلة",
+    "messages": "الرسائل",
+    "member_since": "عضو منذ",
+    "saved_properties": "عقارات محفوظة",
+    "contact_requests": "طلبات التواصل",
+    "years_member": "سنوات العضوية",
+    "my_favorites": "مفضلاتي",
+    "favorites_description": "إدارة العقارات المفضلة لديك",
+    "no_favorites": "لا توجد مفضلات حتى الآن",
+    "browse_properties": "تصفح العقارات",
+    "view_all_favorites": "عرض جميع المفضلات",
+    "my_messages": "رسائلي",
+    "messages_description": "طلبات التواصل والمحادثات الخاصة بك",
+    "no_messages": "لا توجد رسائل حتى الآن",
+    "view_all_messages": "عرض جميع الرسائل",
+    "status_pending": "معلق",
+    "status_contacted": "تم التواصل",
+    "status_closed": "مغلق"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "unauthorized": "غير مخول",
+    "login_required": "يجب تسجيل الدخول للوصول إلى هذه الصفحة"
   }
 }

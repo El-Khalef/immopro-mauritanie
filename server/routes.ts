@@ -259,6 +259,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Route for user's own contact requests
+  app.get('/api/contact-requests/user', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const requests = await storage.getContactRequests();
+      // Filter requests by user
+      const userRequests = requests.filter((request: any) => request.userId === userId);
+      res.json(userRequests);
+    } catch (error) {
+      console.error("Error fetching user contact requests:", error);
+      res.status(500).json({ message: "Failed to fetch contact requests" });
+    }
+  });
+
   app.put('/api/contact-requests/:id/status', isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;

@@ -86,6 +86,14 @@ export default function Navigation() {
                     </div>
                   </div>
                   <DropdownMenuItem>
+                    <Link href="/profile">
+                      <span className="flex items-center w-full">
+                        <i className="fas fa-user mr-2"></i>
+                        {t('navigation.profile')}
+                      </span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
                     <Link href="/favorites">
                       <span className="flex items-center w-full">
                         <i className="fas fa-heart mr-2"></i>

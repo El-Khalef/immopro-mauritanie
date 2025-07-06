@@ -121,5 +121,33 @@
     "contact_info": "Informations de contact",
     "follow_us": "Suivez-nous",
     "rights_reserved": "Tous droits réservés"
+  },
+  "profile": {
+    "member": "Membre",
+    "edit": "Modifier le profil",
+    "favorites": "Favoris",
+    "messages": "Messages",
+    "member_since": "Membre depuis",
+    "saved_properties": "biens sauvegardés",
+    "contact_requests": "demandes de contact",
+    "years_member": "années d'adhésion",
+    "my_favorites": "Mes favoris",
+    "favorites_description": "Gérez vos propriétés favorites",
+    "no_favorites": "Aucun favori pour le moment",
+    "browse_properties": "Parcourir les propriétés",
+    "view_all_favorites": "Voir tous les favoris",
+    "my_messages": "Mes messages",
+    "messages_description": "Vos demandes de contact et conversations",
+    "no_messages": "Aucun message pour le moment",
+    "view_all_messages": "Voir tous les messages",
+    "status_pending": "En attente",
+    "status_contacted": "Contacté",
+    "status_closed": "Fermé"
+  },
+  "auth": {
+    "login": "Se connecter",
+    "logout": "Se déconnecter",
+    "unauthorized": "Non autorisé",
+    "login_required": "Vous devez vous connecter pour accéder à cette page"
   }
 }
