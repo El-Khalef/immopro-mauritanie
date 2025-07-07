@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/authUtils";
+import { formatPrice } from "@/lib/currency";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { Property } from "@shared/schema";
 import { Button } from "@/components/ui/button";
@@ -108,7 +109,7 @@ export default function PropertyCard({ property, isFavorite = false }: PropertyC
         
         <div className="flex items-center justify-between mb-4">
           <span className="text-2xl font-bold text-primary-600">
-            {formatPrice(property.price)}€
+            {formatPrice(property.price)}
             {property.type === 'rental' && '/mois'}
           </span>
           <div className="flex items-center space-x-4 text-sm text-gray-600">

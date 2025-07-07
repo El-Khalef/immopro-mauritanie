@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import { useTranslation } from 'react-i18next';
+import { MAURITANIAN_CITIES } from "@/lib/currency";
 
 interface SearchFormProps {
   onSearch?: (filters: any) => void;
@@ -16,7 +17,7 @@ export default function SearchForm({ onSearch, heroMode = false, compact = false
   const [filters, setFilters] = useState({
     type: '',
     propertyType: '',
-    city: '',
+    city: 'Nouakchott', // Ville par défaut pour la Mauritanie
     minPrice: '',
     maxPrice: '',
     minSurface: '',
@@ -123,11 +124,16 @@ export default function SearchForm({ onSearch, heroMode = false, compact = false
                 </SelectContent>
               </Select>
 
-              <Input 
-                placeholder="Ville" 
-                value={filters.city}
-                onChange={(e) => handleInputChange('city', e.target.value)}
-              />
+              <Select onValueChange={(value) => handleInputChange('city', value)} value={filters.city}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Ville" />
+                </SelectTrigger>
+                <SelectContent>
+                  {MAURITANIAN_CITIES.map((city) => (
+                    <SelectItem key={city} value={city}>{city}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
 
               <Input 
                 type="number" 

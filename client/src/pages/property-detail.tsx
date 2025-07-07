@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { insertContactRequestSchema } from "@shared/schema";
 import type { Property } from "@shared/schema";
+import { formatPrice } from "@/lib/currency";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
@@ -37,7 +38,7 @@ export default function PropertyDetail() {
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
       propertyId: Number(id),
-      name: user?.firstName && user?.lastName ? `${user.firstName} ${user.lastName}` : "",
+      name: user && user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : "",
       email: user?.email || "",
       phone: "",
       message: "",
@@ -58,12 +59,9 @@ export default function PropertyDetail() {
   const toggleFavoriteMutation = useMutation({
     mutationFn: async () => {
       if (isFavoriteData?.isFavorite) {
-        await apiRequest(`/api/favorites/${id}`, { method: "DELETE" });
+        await apiRequest("DELETE", `/api/favorites/${id}`);
       } else {
-        await apiRequest("/api/favorites", {
-          method: "POST",
-          body: JSON.stringify({ propertyId: Number(id) }),
-        });
+        await apiRequest("POST", "/api/favorites", { propertyId: Number(id) });
       }
     },
     onSuccess: () => {
@@ -78,10 +76,7 @@ export default function PropertyDetail() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: z.infer<typeof contactFormSchema>) => {
-      await apiRequest("/api/contact-requests", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
+      await apiRequest("POST", "/api/contact-requests", data);
     },
     onSuccess: () => {
       setContactDialogOpen(false);
@@ -167,14 +162,14 @@ export default function PropertyDetail() {
   };
 
   const nextImage = () => {
-    if (property.images && property.images.length > 1) {
-      setCurrentImageIndex((prev) => (prev + 1) % property.images.length);
+    if (property?.images && property.images.length > 1) {
+      setCurrentImageIndex((prev) => (prev + 1) % property.images!.length);
     }
   };
 
   const previousImage = () => {
-    if (property.images && property.images.length > 1) {
-      setCurrentImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length);
+    if (property?.images && property.images.length > 1) {
+      setCurrentImageIndex((prev) => (prev - 1 + property.images!.length) % property.images!.length);
     }
   };
 
@@ -281,7 +276,7 @@ export default function PropertyDetail() {
                 {property.address}, {property.city} {property.postalCode}
               </div>
               <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
-                {formatPrice(property.price)} €
+                {formatPrice(property.price)}
                 {property.type === "rental" && (
                   <span className="text-base font-normal text-gray-600 dark:text-gray-400">
                     /{t('property.perMonth')}
@@ -327,7 +322,7 @@ export default function PropertyDetail() {
                 <div className="flex items-center gap-2 p-4 bg-white dark:bg-gray-800 rounded-lg">
                   <Calendar className="h-5 w-5 text-blue-600" />
                   <div>
-                    <div className="font-semibold">{formatDate(property.availableFrom)}</div>
+                    <div className="font-semibold">{formatDate(property.availableFrom.toString())}</div>
                     <div className="text-sm text-gray-600 dark:text-gray-400">
                       {t('property.availableFrom')}
                     </div>
@@ -425,7 +420,7 @@ export default function PropertyDetail() {
                             <FormItem>
                               <FormLabel>{t('property.phone')}</FormLabel>
                               <FormControl>
-                                <Input {...field} />
+                                <Input {...field} value={field.value || ""} />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -506,7 +501,7 @@ export default function PropertyDetail() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-400">{t('property.listed')}</span>
-                  <span>{formatDate(property.createdAt)}</span>
+                  <span>{formatDate(property.createdAt?.toString() || "")}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-400">{t('property.propertyId')}</span>

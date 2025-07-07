@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import PropertyCard from "@/components/property-card";
 import { Search, Filter, MapPin, Home, Building, MapIcon } from "lucide-react";
+import { MAURITANIAN_CITIES } from "@/lib/currency";
 import type { Property } from "@shared/schema";
 
 interface SearchFilters {
@@ -180,11 +181,20 @@ export default function Properties() {
                     <MapPin className="h-4 w-4 inline mr-1" />
                     {t('properties.city')}
                   </label>
-                  <Input
-                    placeholder={t('properties.cityPlaceholder')}
+                  <Select
                     value={filters.city || ""}
-                    onChange={(e) => handleFilterChange("city", e.target.value)}
-                  />
+                    onValueChange={(value) => handleFilterChange("city", value)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder={t('properties.cityPlaceholder')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="">Toutes les villes</SelectItem>
+                      {MAURITANIAN_CITIES.map((city) => (
+                        <SelectItem key={city} value={city}>{city}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <Separator />
