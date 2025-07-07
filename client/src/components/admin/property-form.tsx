@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { insertPropertySchema, type Property } from "@shared/schema";
+import { MAURITANIAN_CITIES } from "@/lib/currency";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -41,7 +42,7 @@ export default function PropertyForm({ property, open, onOpenChange }: PropertyF
       rooms: property?.rooms || 1,
       bedrooms: property?.bedrooms || undefined,
       address: property?.address || '',
-      city: property?.city || '',
+      city: property?.city || 'Nouakchott',
       postalCode: property?.postalCode || '',
       latitude: property?.latitude ? Number(property.latitude) : undefined,
       longitude: property?.longitude ? Number(property.longitude) : undefined,
@@ -295,9 +296,18 @@ export default function PropertyForm({ property, open, onOpenChange }: PropertyF
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Ville</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Sélectionnez une ville" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {MAURITANIAN_CITIES.map((city) => (
+                          <SelectItem key={city} value={city}>{city}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}

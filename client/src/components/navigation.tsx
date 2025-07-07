@@ -23,6 +23,7 @@ export default function Navigation() {
     { href: "/properties", label: t('navigation.properties'), active: location.startsWith("/properties") },
     { href: "/about", label: t('navigation.about'), active: location === "/about" },
     { href: "/contact", label: t('navigation.contact'), active: location === "/contact" },
+    ...(user?.isAdmin ? [{ href: "/admin", label: "Administration", active: location === "/admin" }] : []),
   ];
 
   return (
