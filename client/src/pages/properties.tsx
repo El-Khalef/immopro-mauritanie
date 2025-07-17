@@ -52,7 +52,7 @@ export default function Properties() {
   const handleFilterChange = (key: keyof SearchFilters, value: string | number) => {
     setFilters(prev => ({
       ...prev,
-      [key]: value === "" ? undefined : value
+      [key]: value === "" || value === "all" ? undefined : value
     }));
   };
 
@@ -194,7 +194,7 @@ export default function Properties() {
                       <SelectValue placeholder={t('properties.cityPlaceholder')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">Toutes les villes</SelectItem>
+                      <SelectItem value="all">Toutes les villes</SelectItem>
                       {MAURITANIAN_CITIES.map((city) => (
                         <SelectItem key={city} value={city}>{city}</SelectItem>
                       ))}
