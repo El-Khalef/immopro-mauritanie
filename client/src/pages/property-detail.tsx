@@ -20,6 +20,7 @@ import { formatPrice } from "@/lib/currency";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
+import SinglePropertyMap from "@/components/map/single-property-map";
 import { z } from "zod";
 
 const contactFormSchema = insertContactRequestSchema.extend({
@@ -507,6 +508,19 @@ export default function PropertyDetail() {
                   <span className="text-gray-600 dark:text-gray-400">{t('property.propertyId')}</span>
                   <span>#{property.id}</span>
                 </div>
+              </CardContent>
+            </Card>
+
+            {/* Location Map */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4" />
+                  Localisation
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <SinglePropertyMap property={property} height="250px" />
               </CardContent>
             </Card>
           </div>

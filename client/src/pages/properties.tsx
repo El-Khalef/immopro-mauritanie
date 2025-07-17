@@ -8,8 +8,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import Navigation from "@/components/navigation";
 import PropertyCard from "@/components/property-card";
-import { Search, Filter, MapPin, Home, Building, MapIcon } from "lucide-react";
+import PropertyMap from "@/components/map/property-map";
+import { Search, Filter, MapPin, Home, Building, MapIcon, Map, Grid3X3 } from "lucide-react";
 import { MAURITANIAN_CITIES } from "@/lib/currency";
 import type { Property } from "@shared/schema";
 
@@ -29,6 +31,8 @@ export default function Properties() {
   const { t } = useTranslation();
   const [filters, setFilters] = useState<SearchFilters>({});
   const [showFilters, setShowFilters] = useState(false);
+  const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
+  const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
 
   const { data: properties, isLoading } = useQuery<Property[]>({
     queryKey: ["/api/properties", filters],
@@ -60,6 +64,7 @@ export default function Properties() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <Navigation />
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
@@ -273,61 +278,119 @@ export default function Properties() {
               <div>
                 <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                   {isLoading ? (
-                    t('properties.loading')
+                    "Chargement..."
                   ) : (
-                    t('properties.resultsCount', { count: properties?.length || 0 })
+                    `${properties?.length || 0} bien(s) trouvé(s)`
                   )}
                 </h2>
                 {activeFiltersCount > 0 && (
                   <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                    {t('properties.filtersApplied', { count: activeFiltersCount })}
+                    {activeFiltersCount} filtre(s) appliqué(s)
                   </p>
                 )}
               </div>
-              <Link href="/properties/map">
-                <Button variant="outline" className="flex items-center gap-2">
-                  <MapIcon className="h-4 w-4" />
-                  {t('properties.viewMap')}
-                </Button>
-              </Link>
+              <div className="flex items-center gap-2">
+                <div className="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+                  <Button
+                    variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                    size="sm"
+                    onClick={() => setViewMode('grid')}
+                    className="flex items-center gap-2"
+                  >
+                    <Grid3X3 className="h-4 w-4" />
+                    Grille
+                  </Button>
+                  <Button
+                    variant={viewMode === 'map' ? 'default' : 'ghost'}
+                    size="sm"
+                    onClick={() => setViewMode('map')}
+                    className="flex items-center gap-2"
+                  >
+                    <Map className="h-4 w-4" />
+                    Carte
+                  </Button>
+                </div>
+              </div>
             </div>
 
-            {/* Properties Grid */}
-            {isLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {[...Array(6)].map((_, i) => (
-                  <div key={i} className="h-96 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse" />
-                ))}
-              </div>
-            ) : properties && properties.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {properties.map((property) => (
-                  <PropertyCard key={property.id} property={property} />
-                ))}
-              </div>
+            {/* Content Based on View Mode */}
+            {viewMode === 'grid' ? (
+              /* Properties Grid */
+              isLoading ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {[...Array(6)].map((_, i) => (
+                    <div key={i} className="h-96 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse" />
+                  ))}
+                </div>
+              ) : properties && properties.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {properties.map((property) => (
+                    <PropertyCard key={property.id} property={property} />
+                  ))}
+                </div>
+              ) : (
+                <Card className="text-center py-12">
+                  <CardContent>
+                    <div className="flex flex-col items-center gap-4">
+                      <div className="h-24 w-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
+                        <Search className="h-8 w-8 text-gray-400" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                          Aucun résultat trouvé
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-400 mb-4">
+                          Essayez de modifier vos critères de recherche
+                        </p>
+                        {activeFiltersCount > 0 && (
+                          <Button onClick={clearFilters} variant="outline">
+                            Effacer les filtres
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )
             ) : (
-              <Card className="text-center py-12">
-                <CardContent>
-                  <div className="flex flex-col items-center gap-4">
-                    <div className="h-24 w-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
-                      <Search className="h-8 w-8 text-gray-400" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                        {t('properties.noResults')}
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-400 mb-4">
-                        {t('properties.noResultsDescription')}
-                      </p>
-                      {activeFiltersCount > 0 && (
-                        <Button onClick={clearFilters} variant="outline">
-                          {t('properties.clearFilters')}
-                        </Button>
-                      )}
-                    </div>
+              /* Map View */
+              <div className="space-y-4">
+                {isLoading ? (
+                  <div className="h-96 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse flex items-center justify-center">
+                    <p className="text-gray-500">Chargement de la carte...</p>
                   </div>
-                </CardContent>
-              </Card>
+                ) : properties && properties.length > 0 ? (
+                  <PropertyMap 
+                    properties={properties} 
+                    height="600px"
+                    selectedPropertyId={selectedProperty?.id}
+                    onPropertySelect={setSelectedProperty}
+                  />
+                ) : (
+                  <Card className="text-center py-12">
+                    <CardContent>
+                      <div className="flex flex-col items-center gap-4">
+                        <div className="h-24 w-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
+                          <Map className="h-8 w-8 text-gray-400" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                            Aucune propriété à afficher sur la carte
+                          </h3>
+                          <p className="text-gray-600 dark:text-gray-400 mb-4">
+                            Essayez de modifier vos critères de recherche
+                          </p>
+                          {activeFiltersCount > 0 && (
+                            <Button onClick={clearFilters} variant="outline">
+                              Effacer les filtres
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
             )}
           </div>
         </div>
