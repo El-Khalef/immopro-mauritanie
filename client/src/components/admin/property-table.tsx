@@ -121,6 +121,7 @@ export default function PropertyTable() {
                 <TableHead>Prix</TableHead>
                 <TableHead>Ville</TableHead>
                 <TableHead>Statut</TableHead>
+                <TableHead>Vedette</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -178,6 +179,15 @@ export default function PropertyTable() {
                   </TableCell>
                   <TableCell>
                     {getStatusBadge(property.status)}
+                  </TableCell>
+                  <TableCell>
+                    {property.featured ? (
+                      <Badge variant="default" className="bg-yellow-500 hover:bg-yellow-600">
+                        ⭐ Vedette
+                      </Badge>
+                    ) : (
+                      <span className="text-gray-400 text-sm">-</span>
+                    )}
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex items-center gap-2 justify-end">

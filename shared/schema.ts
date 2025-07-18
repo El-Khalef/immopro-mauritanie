@@ -56,6 +56,7 @@ export const properties = pgTable("properties", {
   features: text("features").array().default([]), // parking, balcony, garden, etc.
   availableFrom: timestamp("available_from"),
   status: varchar("status", { length: 20 }).default("available"), // available, sold, rented, pending
+  featured: boolean("featured").default(false), // true for featured properties on homepage
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });

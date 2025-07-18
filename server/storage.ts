@@ -168,17 +168,28 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getFeaturedProperties(limit = 6): Promise<Property[]> {
-    // Option 1: Propriétés les plus récentes disponibles
-    return await db
+    // Sélectionner les propriétés marquées comme "en vedette" en priorité
+    const featuredProperties = await db
       .select()
       .from(properties)
-      .where(eq(properties.status, "available"))
+      .where(and(eq(properties.status, "available"), eq(properties.featured, true)))
       .orderBy(desc(properties.createdAt))
       .limit(limit);
+
+    // Si pas assez de propriétés en vedette, compléter avec les plus récentes
+    if (featuredProperties.length < limit) {
+      const remaining = limit - featuredProperties.length;
+      const recentProperties = await db
+        .select()
+        .from(properties)
+        .where(and(eq(properties.status, "available"), eq(properties.featured, false)))
+        .orderBy(desc(properties.createdAt))
+        .limit(remaining);
       
-    // Option 2: Pour sélectionner des propriétés spécifiques en vedette,
-    // ajouter un champ 'featured' à la table et utiliser :
-    // .where(and(eq(properties.status, "available"), eq(properties.featured, true)))
+      return [...featuredProperties, ...recentProperties];
+    }
+
+    return featuredProperties;
   }
 
   // Favorites operations

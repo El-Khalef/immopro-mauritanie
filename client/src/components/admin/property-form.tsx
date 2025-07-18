@@ -14,6 +14,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const propertyFormSchema = insertPropertySchema.extend({
   images: z.any().optional(),
@@ -53,6 +54,7 @@ export default function PropertyForm({ property, open, onOpenChange }: PropertyF
       longitude: property?.longitude ? Number(property.longitude) : undefined,
       features: property?.features || [],
       status: property?.status || 'available',
+      featured: property?.featured || false,
     },
   });
 
@@ -353,6 +355,29 @@ export default function PropertyForm({ property, open, onOpenChange }: PropertyF
                       </SelectContent>
                     </Select>
                     <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="featured"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel>
+                        ⭐ Mettre en vedette sur l'accueil
+                      </FormLabel>
+                      <p className="text-sm text-muted-foreground">
+                        Cette propriété apparaîtra en priorité sur la page d'accueil
+                      </p>
+                    </div>
                   </FormItem>
                 )}
               />
