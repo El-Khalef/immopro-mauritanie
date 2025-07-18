@@ -3,6 +3,14 @@
 
 echo "🚀 Sauvegarde automatique vers GitHub..."
 
+# Vérifier si Git est initialisé
+if [ ! -d ".git" ]; then
+    echo "Initialisation de Git..."
+    git init
+    git branch -M main
+    git remote add origin https://github.com/El-Khalef/immopro-mauritanie.git
+fi
+
 # Ajouter tous les fichiers modifiés
 git add .
 
