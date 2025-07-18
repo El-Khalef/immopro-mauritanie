@@ -37,7 +37,7 @@ export default function PropertyForm({ property, open, onOpenChange }: PropertyF
       description: property?.description || '',
       type: property?.type || 'sale',
       propertyType: property?.propertyType || 'apartment',
-      price: property?.price ? Number(property.price) : 0,
+      price: property?.price ? property.price.toString() : '',
       surface: property?.surface || 0,
       rooms: property?.rooms || 1,
       bedrooms: property?.bedrooms || undefined,
@@ -223,12 +223,12 @@ export default function PropertyForm({ property, open, onOpenChange }: PropertyF
                 name="price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Prix (€)</FormLabel>
+                    <FormLabel>Prix (MRU)</FormLabel>
                     <FormControl>
                       <Input 
                         type="number" 
                         {...field} 
-                        onChange={(e) => field.onChange(Number(e.target.value))}
+                        onChange={(e) => field.onChange(e.target.value)}
                       />
                     </FormControl>
                     <FormMessage />
