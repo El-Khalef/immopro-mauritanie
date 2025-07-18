@@ -168,12 +168,17 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getFeaturedProperties(limit = 6): Promise<Property[]> {
+    // Option 1: Propriétés les plus récentes disponibles
     return await db
       .select()
       .from(properties)
       .where(eq(properties.status, "available"))
       .orderBy(desc(properties.createdAt))
       .limit(limit);
+      
+    // Option 2: Pour sélectionner des propriétés spécifiques en vedette,
+    // ajouter un champ 'featured' à la table et utiliser :
+    // .where(and(eq(properties.status, "available"), eq(properties.featured, true)))
   }
 
   // Favorites operations
