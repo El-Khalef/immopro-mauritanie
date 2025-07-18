@@ -8,8 +8,12 @@ if [ ! -d ".git" ]; then
     echo "Initialisation de Git..."
     git init
     git branch -M main
-    git remote add origin https://github.com/El-Khalef/immopro-mauritanie.git
+    # Utiliser le token GitHub pour l'authentification
+    git remote add origin https://${GITHUB_PERSONAL_ACCESS_TOKEN}@github.com/El-khalef/immopro-mauritanie.git
 fi
+
+# Configurer l'authentification Git avec le token
+git remote set-url origin https://${GITHUB_PERSONAL_ACCESS_TOKEN}@github.com/El-khalef/immopro-mauritanie.git
 
 # Ajouter tous les fichiers modifiés
 git add .
