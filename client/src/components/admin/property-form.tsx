@@ -18,6 +18,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 const propertyFormSchema = insertPropertySchema.extend({
   images: z.any().optional(),
   features: z.array(z.string()).optional(),
+}).partial({
+  postalCode: true,
+  bedrooms: true,
+  latitude: true,
+  longitude: true,
 });
 
 interface PropertyFormProps {
@@ -43,7 +48,7 @@ export default function PropertyForm({ property, open, onOpenChange }: PropertyF
       bedrooms: property?.bedrooms || undefined,
       address: property?.address || '',
       city: property?.city || 'Nouakchott',
-      postalCode: property?.postalCode || '',
+      postalCode: property?.postalCode || '00000',
       latitude: property?.latitude ? Number(property.latitude) : undefined,
       longitude: property?.longitude ? Number(property.longitude) : undefined,
       features: property?.features || [],
@@ -89,6 +94,7 @@ export default function PropertyForm({ property, open, onOpenChange }: PropertyF
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/properties"] });
       queryClient.invalidateQueries({ queryKey: ["/api/properties/featured"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/stats"] });
       queryClient.invalidateQueries({ queryKey: [`/api/properties/${property!.id}`] });
       toast({
         title: "Bien modifié",
@@ -120,7 +126,7 @@ export default function PropertyForm({ property, open, onOpenChange }: PropertyF
     Object.entries(data).forEach(([key, value]) => {
       if (key === 'features' && Array.isArray(value)) {
         formData.append(key, JSON.stringify(value));
-      } else if (value !== undefined && value !== null) {
+      } else if (value !== undefined && value !== null && value !== '') {
         formData.append(key, value.toString());
       }
     });
